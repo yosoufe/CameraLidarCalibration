@@ -1,3 +1,9 @@
 data
 data/
+build/*
+build
+devel
+devel/*
+.ipynb_checkpoints
+.ipynb_checkpoints/*
 
