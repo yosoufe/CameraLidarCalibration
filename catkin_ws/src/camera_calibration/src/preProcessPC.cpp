@@ -87,7 +87,7 @@ int main(int argc, char **argv)
   ros::NodeHandle nh;
 
   ros::Subscriber sub = nh.subscribe("/sensors/velodyne_points", 1000, pc2Callback);
-  pub = nh.advertise<sensor_msgs::PointCloud2>("croped_PC", 100);
+  pub = nh.advertise<sensor_msgs::PointCloud2>("CheckerBoardSurface", 100);
 
 
   ros::spin();
