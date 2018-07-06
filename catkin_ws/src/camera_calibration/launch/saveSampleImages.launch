@@ -1,4 +1,0 @@
-<launch>
-  <node pkg="rosbag" type="play" name="rosbag" required="true" args="-s 20 $(find camera_calibration)/../../../data/2016-11-22-14-32-13_test.bag"/>
-  <node name="rqt_image_view" pkg="rqt_image_view" type="rqt_image_view" args="image:=/sensors/camera/image_raw"/>
-</launch>

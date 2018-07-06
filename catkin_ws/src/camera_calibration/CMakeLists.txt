@@ -8,9 +8,13 @@ project(camera_calibration)
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
+  pcl_conversions
+  pcl_ros
   roscpp
   rospy
   std_msgs
+  sensor_msgs
+  rosconsole
 )
 
 ## System dependencies are found with CMake's conventions
@@ -122,7 +126,7 @@ include_directories(
 
 ## Declare a C++ library
 # add_library(${PROJECT_NAME}
-#   src/${PROJECT_NAME}/camera_calibration.cpp
+#   src/preProcessPC.cpp
 # )
 
 ## Add cmake target dependencies of the library
@@ -133,7 +137,8 @@ include_directories(
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
-# add_executable(${PROJECT_NAME}_node src/camera_calibration_node.cpp)
+add_executable(preProcessPC_node src/preProcessPC.cpp)
+target_link_libraries(preProcessPC_node ${catkin_LIBRARIES})
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the

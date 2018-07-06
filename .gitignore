@@ -2,6 +2,8 @@ data
 data/
 build/*
 build
+*/build
+*/build/*
 devel
 devel/*
 .ipynb_checkpoints

@@ -1,0 +1,11 @@
+  
+  <node name="rqt_image_view" pkg="rqt_image_view" type="rqt_image_view" args="image:=/sensors/camera/image_raw"/>
+  <node name="rqt_image_view_rect" pkg="rqt_image_view" type="rqt_image_view" args="image:=/viewer2/image_rect_color/image_topics"/>
+  <node name="imag_rect" pkg="image_proc" type="image_proc">
+     <remap from="/viewer2/image_raw" to="/sensors/camera/image_color"/>
+     <remap from="/viewer2/camera_info" to="/sensors/camera/camera_info"/>
+  </node>
+
+$(find camera_calibration)/
+
+args="--perspective-file $(find camera_calibration)/launch/IMGS.perspective "
