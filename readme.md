@@ -9,7 +9,7 @@ The Assigment is the 2 first tasks of [this](https://docs.google.com/document/d/
 * Camera Calibration in this [Notebook](https://github.com/yosoufe/Assignment/blob/master/scripts/Camera%20Calibration.ipynb). ([hint](https://docs.opencv.org/3.4/dc/dbb/tutorial_py_calibration.html))
 * Croping the Pointcloud to the ROI which has the checkerboard in [this ROS Node](https://github.com/yosoufe/Assignment/blob/master/catkin_ws/src/camera_calibration/src/preProcessPC.cpp).
 * SubSample the cropped pintcloud to only the checkerboard surface in [this ROS Node](https://github.com/yosoufe/Assignment/blob/master/catkin_ws/src/camera_calibration/src/preProcessPC.cpp).
-* Pose Estimation with camera and checkerboard ([hint](https://docs.opencv.org/3.4/d7/d53/tutorial_py_pose.html)) in [this node].
+* Pose Estimation with camera and checkerboard ([hint](https://docs.opencv.org/3.4/d7/d53/tutorial_py_pose.html)) in [this node](https://github.com/yosoufe/Assignment/blob/master/catkin_ws/src/camera_calibration/src/camPoseEstimator.cpp).
 
 ## Installations:
 
@@ -25,6 +25,7 @@ conda install -c conda-forge opencv
 Put the bag file in a folder `data` in the same directory. 
 Then it can be played by the following command.
 ```
+catkin_make
 source devel/setup.bash
 roslaunch camera_calibration playBag.launch
 ```
