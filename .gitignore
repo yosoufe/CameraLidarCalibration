@@ -8,4 +8,5 @@ catkin_ws/devel
 catkin_ws/devel/*
 scripts/.ipynb_checkpoints
 scripts/.ipynb_checkpoints/*
+catkin_ws/Assignment.workspace.user
 
