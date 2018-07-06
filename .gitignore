@@ -2,10 +2,10 @@ data
 data/
 build/*
 build
-*/build
-*/build/*
-devel
-devel/*
-.ipynb_checkpoints
-.ipynb_checkpoints/*
+catkin_ws/build
+catkin_ws/build/*
+catkin_ws/devel
+catkin_ws/devel/*
+scripts/.ipynb_checkpoints
+scripts/.ipynb_checkpoints/*
 

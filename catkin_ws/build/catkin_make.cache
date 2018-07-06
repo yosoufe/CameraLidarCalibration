@@ -1,2 +1,0 @@
-camera_calibration
--DCATKIN_DEVEL_PREFIX=/home/yousof/RideCellAssignment/catkin_ws/devel -DCMAKE_INSTALL_PREFIX=/home/yousof/RideCellAssignment/catkin_ws/install -G Unix Makefiles
