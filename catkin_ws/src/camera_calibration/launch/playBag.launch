@@ -9,5 +9,5 @@
 
   <node pkg="camera_calibration" type="preProcessPC_node" name="preProcess"/>
   <node pkg="rqt_console" type="rqt_console" name="rqt_console"/>
-  <node pkg="camera_calibration" type="camPoseEstimator_node" name="camPoseEstimator"/>
+  <node pkg="camera_calibration" type="camPoseEstimator_node" name="camPoseEstimator" output="screen"/>
 </launch>
