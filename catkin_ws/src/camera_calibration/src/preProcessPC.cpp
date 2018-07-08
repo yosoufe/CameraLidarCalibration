@@ -1,6 +1,6 @@
 #include "ros/ros.h"
-#include "std_msgs/String.h"
 #include "sensor_msgs/PointCloud2.h"
+#include "camera_calibration/NormalVec.h"
 #include <ros/console.h>
 
 #include <pcl_conversions/pcl_conversions.h>
@@ -19,7 +19,7 @@
 #include <Eigen/Eigen>
 
 ros::Publisher pub;
-//pcl::PointCloud< pcl::PointXYZ > PointCloudXYZ;
+ros::Publisher pubVect;
 
 Eigen::Vector4f p1,p2;
 
@@ -61,10 +61,21 @@ void pc2Callback(const sensor_msgs::PointCloud2ConstPtr& input)
     ROS_DEBUG ("Could not estimate a planar model for the given dataset.");
     return;
   }
-  ROS_INFO_STREAM(inliers->indices.size ()<<"Model coefficients: " << coefficients->values[0] << " "
+  ROS_INFO_STREAM(inliers->indices.size ()<<" from PC: " << coefficients->values[0] << " "
                                   << coefficients->values[1] << " "
                                   << coefficients->values[2] << " "
                                   << coefficients->values[3]);
+
+  camera_calibration::NormalVec coeff;
+  coeff.vec = coefficients->values;
+  //coeff.vec.resize(coefficients->values.size());
+  //std::memcpy(coeff.vec.data(),coefficients->values.data(),coefficients->values.size()*sizeof(float));
+//  coeff.vec.push_back(coefficients->values[0]);
+//  coeff.vec.push_back(coefficients->values[1]);
+//  coeff.vec.push_back(coefficients->values[2]);
+//  coeff.vec.push_back(coefficients->values[3]);
+
+  pubVect.publish(coeff);
   // Just Inliers
   pcl::CropBox<pcl::PointXYZ> indFilter;
   cropFilter.setInputCloud(pclCropped);
@@ -88,7 +99,7 @@ int main(int argc, char **argv)
 
   ros::Subscriber sub = nh.subscribe("/sensors/velodyne_points", 1000, pc2Callback);
   pub = nh.advertise<sensor_msgs::PointCloud2>("CheckerBoardSurface", 100);
-
+  pubVect = nh.advertise<camera_calibration::NormalVec>("plane/fromPC",10);
 
   ros::spin();
 

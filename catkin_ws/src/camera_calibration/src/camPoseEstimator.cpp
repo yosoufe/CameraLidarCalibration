@@ -3,6 +3,7 @@
 #include "std_msgs/String.h"
 #include "sensor_msgs/Image.h"
 #include "sensor_msgs/CameraInfo.h"
+#include "camera_calibration/NormalVec.h"
 
 #include "opencv/cv.h"
 #include "opencv2/calib3d.hpp"
@@ -11,6 +12,8 @@
 
 
 ros::Publisher pubImg;
+ros::Publisher pubVect;
+
 bool isCamInfoAvailable = false;
 sensor_msgs::CameraInfo camInfo;
 cv::Mat camMtx(3,3,CV_32F);
@@ -20,14 +23,14 @@ std::vector<cv::Point3f> objPnts;
 
 void camInfoCallback(const sensor_msgs::CameraInfo::ConstPtr& info)
 {
-  if(isCamInfoAvailable) return;
-  isCamInfoAvailable = true;
-  float tempK[9];
-  for (int i = 0; i < 9; i++) {
-     tempK[i] = info->K[i];
-  }
-  std::memcpy(camMtx.data, info->K.data(),3*3*sizeof(float));
-  std::memcpy(camDst.data, info->D.data(),1*5*sizeof(float));
+//  if(isCamInfoAvailable) return;
+//  isCamInfoAvailable = true;
+//  float tempK[9];
+//  for (int i = 0; i < 9; i++) {
+//     tempK[i] = info->K[i];
+//  }
+//  std::memcpy(camMtx.data, info->K.data(),3*3*sizeof(float));
+//  std::memcpy(camDst.data, info->D.data(),1*5*sizeof(float));
   //ROS_INFO_STREAM( camDst.at<float>(0) << " " << camMtx.at<float>(0) );
 }
 
@@ -50,26 +53,37 @@ void imgCallback(const sensor_msgs::Image::ConstPtr& img)
   cv::drawChessboardCorners(cv_ptr->image,patternSize,corners,found);
 
   // find the rotation of the camera relative to the checkerboard
-  cv::Mat rot(1,3,CV_32F);
-  cv::Mat tra(1,3,CV_32F);
+  cv::Mat rot;
+  cv::Mat tra;
+  cv::Mat rot33;
 
   try
   {
-    if(corners.size() == 7*5)
-    {
-      cv::solvePnP(objPnts,corners,camMtx,camDst,rot,tra);
-      ROS_INFO_STREAM( rot );
-    }
+    cv::solvePnP(objPnts,corners,camMtx,camDst,rot,tra);
+    cv::Rodrigues(rot,rot33);
+    ROS_INFO_STREAM( "from Cam: " << rot33.row(2));
+
+    // publish the normal axis
+    camera_calibration::NormalVec coeff;
+    coeff.vec.resize(3);
+    coeff.vec[0] = rot33.at<double>(2,0);
+    coeff.vec[1] = rot33.at<double>(2,1);
+    coeff.vec[2] = rot33.at<double>(2,2);
+    pubVect.publish(coeff);
+
+    // add axis to the checkerboard
+    std::vector<cv::Point3f> pts;
+    std::vector<cv::Point2f> imgPts;
+    pts.push_back(cv::Point3f(0,0,0));
+    pts.push_back(cv::Point3f(0,0,5));
+    cv::projectPoints(pts,rot,tra,camMtx,camDst,imgPts);
+    cv::line(cv_ptr->image,imgPts[0],imgPts[1],cv::Scalar(0,250,0),3);
+
   }
   catch (cv::Exception e)
   {
-    ROS_WARN_STREAM(e.msg);//objPnts << std::endl<<
+    ROS_WARN_STREAM(e.msg);
   }
-
-
-  //ROS_DEBUG_STREAM("hei: " << rot << tra);
-
-  // add axis to the checkerboard
 
   // Publish the image
   pubImg.publish(cv_ptr->toImageMsg());
@@ -84,16 +98,20 @@ int main(int argc, char **argv)
       cv::Point3f pnt(height,width,0);
       objPnts.push_back(pnt);
     }
-
   }
-
+  camMtx = (cv::Mat_<float>(3,3) << 487.46738529 , 0.0 , 458.57846055 ,
+  0 ,  485.48303131 , 372.73628683 ,
+  0 , 0 , 1.0);
+  camDst = (cv::Mat_<float>(1,5) << -0.2247311 , 0.11839985 , 0.00156723 , 0.00077842 , -0.02886818);
+  isCamInfoAvailable = true;
 
   ros::init(argc, argv, "camPoseEstimator");
   ros::NodeHandle nh;
 
   ros::Subscriber subImg = nh.subscribe("/sensors/camera/image_color", 1, imgCallback);
-  ros::Subscriber subCamInfo = nh.subscribe("/sensors/camera/camera_info", 1, camInfoCallback);
+  //ros::Subscriber subCamInfo = nh.subscribe("/sensors/camera/camera_info", 1, camInfoCallback);
   pubImg = nh.advertise<sensor_msgs::Image>("imageWithAxis", 100);
+  pubVect = nh.advertise<camera_calibration::NormalVec>("plane/fromCam",10);
 
   ros::spin();
 

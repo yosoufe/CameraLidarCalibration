@@ -9,5 +9,10 @@
 
   <node pkg="camera_calibration" type="preProcessPC_node" name="preProcess"/>
   <node pkg="rqt_console" type="rqt_console" name="rqt_console"/>
-  <node pkg="camera_calibration" type="camPoseEstimator_node" name="camPoseEstimator" output="screen"/>
+  <node pkg="camera_calibration" type="camPoseEstimator_node" name="camPoseEstimator"/>
+  <param name="filePath" type="string" value="/home/yousof/RideCellAssignment/res.txt" />
+  <node pkg="camera_calibration" type="processor_node" name="processor" output="screen"/>
+  <node pkg="camera_calibration" type="keyBoard_node" name="keyBoard"/>
 </launch>
+
+ <!--  output="screen" -->

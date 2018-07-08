@@ -7,8 +7,9 @@ project(camera_calibration)
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
-find_package(catkin REQUIRED COMPONENTS
-  OpenCV
+
+find_package( OpenCV REQUIRED )
+find_package(catkin REQUIRED COMPONENTS	
   pcl_conversions
   pcl_ros
   cv_bridge
@@ -17,6 +18,7 @@ find_package(catkin REQUIRED COMPONENTS
   std_msgs
   sensor_msgs
   rosconsole
+  message_generation
 )
 
 ## System dependencies are found with CMake's conventions
@@ -53,18 +55,20 @@ find_package(catkin REQUIRED COMPONENTS
 ##   * add every package in MSG_DEP_SET to generate_messages(DEPENDENCIES ...)
 
 ## Generate messages in the 'msg' folder
-# add_message_files(
-#   FILES
+add_message_files(
+  FILES
 #   Message1.msg
 #   Message2.msg
-# )
+  NormalVec.msg
+)
 
 ## Generate services in the 'srv' folder
-# add_service_files(
-#   FILES
+add_service_files(
+  FILES
+  Save.srv
 #   Service1.srv
 #   Service2.srv
-# )
+)
 
 ## Generate actions in the 'action' folder
 # add_action_files(
@@ -74,10 +78,10 @@ find_package(catkin REQUIRED COMPONENTS
 # )
 
 ## Generate added messages and services with any dependencies listed here
-# generate_messages(
-#   DEPENDENCIES
-#   std_msgs
-# )
+generate_messages(
+  DEPENDENCIES
+  std_msgs
+)
 
 ################################################
 ## Declare ROS dynamic reconfigure parameters ##
@@ -113,6 +117,7 @@ catkin_package(
 #  LIBRARIES camera_calibration
 #  CATKIN_DEPENDS roscpp rospy std_msgs
 #  DEPENDS system_lib
+  CATKIN_DEPENDS message_runtime
 )
 
 ###########
@@ -124,7 +129,7 @@ catkin_package(
 include_directories(
 # include
   ${catkin_INCLUDE_DIRS}
-
+  ${OpenCV_INCLUDE_DIRS}
 )
 
 ## Declare a C++ library
@@ -144,7 +149,13 @@ add_executable(preProcessPC_node src/preProcessPC.cpp)
 target_link_libraries(preProcessPC_node ${catkin_LIBRARIES} )
 
 add_executable(camPoseEstimator_node src/camPoseEstimator.cpp)
-target_link_libraries(camPoseEstimator_node ${catkin_LIBRARIES} ${OpenCV_LIBRARIES})
+target_link_libraries(camPoseEstimator_node ${OpenCV_LIBRARIES} ${catkin_LIBRARIES})
+
+add_executable(processor_node src/processor.cpp)
+target_link_libraries(processor_node ${catkin_LIBRARIES} )
+
+add_executable(keyBoard_node src/keyBoard.cpp)
+target_link_libraries(keyBoard_node ${catkin_LIBRARIES} )
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
