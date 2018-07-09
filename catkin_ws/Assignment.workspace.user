@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 4.5.1, 2018-07-06T23:02:58. -->
+<!-- Written by QtCreator 4.5.1, 2018-07-08T20:19:36. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -107,7 +107,7 @@
      <value type="QString">PATH=/opt/ros/melodic/bin:/home/yousof/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin</value>
      <value type="QString">PKG_CONFIG_PATH=/home/yousof/RideCellAssignment/catkin_ws/devel/lib/pkgconfig:/opt/ros/melodic/lib/pkgconfig</value>
      <value type="QString">PWD=/home/yousof/RideCellAssignment/catkin_ws</value>
-     <value type="QString">PYTHONPATH=/opt/ros/melodic/lib/python2.7/dist-packages</value>
+     <value type="QString">PYTHONPATH=/home/yousof/RideCellAssignment/catkin_ws/devel/lib/python2.7/dist-packages:/opt/ros/melodic/lib/python2.7/dist-packages</value>
      <value type="QString">QTDIR</value>
      <value type="QString">ROSLISP_PACKAGE_DIRECTORIES=/home/yousof/RideCellAssignment/catkin_ws/devel/share/common-lisp</value>
      <value type="QString">ROS_DISTRO=melodic</value>

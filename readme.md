@@ -10,6 +10,7 @@ The Assigment is the 2 first tasks of [this](https://docs.google.com/document/d/
 * Croping the Pointcloud to the ROI which has the checkerboard in [this ROS Node](https://github.com/yosoufe/Assignment/blob/master/catkin_ws/src/camera_calibration/src/preProcessPC.cpp).
 * SubSample the cropped pintcloud to only the checkerboard surface in [this ROS Node](https://github.com/yosoufe/Assignment/blob/master/catkin_ws/src/camera_calibration/src/preProcessPC.cpp).
 * Pose Estimation with camera and checkerboard ([hint](https://docs.opencv.org/3.4/d7/d53/tutorial_py_pose.html)) in [this node](https://github.com/yosoufe/Assignment/blob/master/catkin_ws/src/camera_calibration/src/camPoseEstimator.cpp).
+* Match the normal vectors to find the rotation matrix between the camera and LIDAR ([tutorial](https://www.coursera.org/learn/robotics-perception/lecture/q9CXI/where-am-i-part-1)) at [this jupytern notebook]().
 
 ## Installations:
 
