@@ -8,6 +8,8 @@
 
     <node pkg="camera_calibration" type="overlapScansOnImages_node" name="overlapScansOnImages">
         <remap from="/sensors/velodyne_points" to="/CheckerBoardSurface"/>
+        <!--  <remap from="/sensors/velodyne_points" to="/CheckerBoardSurface"/> output="screen" -->
     </node>
     <node pkg="camera_calibration" type="preProcessPC_node" name="preProcess"/>
 </launch>
+
