@@ -40,6 +40,7 @@ Then it can be played by the following command.
 catkin_make
 source devel/setup.bash
 roslaunch camera_calibration playBag.launch
+roslaunch camera_calibration final.launch
 ```
 
 
