@@ -21,7 +21,7 @@ The steps from 5. to 8. are done in [palyBag.launch](https://github.com/yosoufe/
 
 <a href="https://www.youtube.com/watch?v=ZNkftIjOVeE&feature=youtu.be" target="_blank"><img src="https://raw.githubusercontent.com/yosoufe/Assignment/master/Docs/video.png" alt="Final Video"/></a>
 
-![alt text](https://github.com/yosoufe/Assignment/blob/master/Docs/ToShowOff.png)
+![alt text](https://raw.githubusercontent.com/yosoufe/Assignment/master/Docs/ToShowOff.png)
 
 ## Installations:
 
