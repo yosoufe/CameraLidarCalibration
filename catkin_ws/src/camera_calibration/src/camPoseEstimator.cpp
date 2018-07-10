@@ -42,7 +42,7 @@ void imgCallback(const sensor_msgs::Image::ConstPtr& img)
   cv_ptr = cv_bridge::toCvCopy(img, sensor_msgs::image_encodings::BGR8);
 
   // find checkerboard corners
-  cv_bridge::CvImagePtr img_gry_ptr(new cv_bridge::CvImage);
+  cv_bridge::CvImagePtr img_gry_ptr(new cv_bridge::CvImage); //grayscale image
   cv::cvtColor(cv_ptr->image,img_gry_ptr->image,cv::COLOR_BGR2GRAY);
   std::vector<cv::Point2f> corners;
   bool found = cv::findChessboardCorners(img_gry_ptr->image,
@@ -50,6 +50,7 @@ void imgCallback(const sensor_msgs::Image::ConstPtr& img)
                                        corners);
   if (!found) return;
 
+  // draw the corners on the image
   cv::drawChessboardCorners(cv_ptr->image,patternSize,corners,found);
 
   // find the rotation of the camera relative to the checkerboard
@@ -66,8 +67,11 @@ void imgCallback(const sensor_msgs::Image::ConstPtr& img)
     // publish the normal axis
     camera_calibration::NormalVec coeff;
     coeff.vec.resize(3);
-    coeff.vec[0] = rot33.at<double>(2,0);
-    coeff.vec[1] = rot33.at<double>(2,1);
+//    coeff.vec[0] = rot33.at<double>(2,0);
+//    coeff.vec[1] = rot33.at<double>(2,1);
+//    coeff.vec[2] = rot33.at<double>(2,2);
+    coeff.vec[0] = rot33.at<double>(0,2);
+    coeff.vec[1] = rot33.at<double>(1,2);
     coeff.vec[2] = rot33.at<double>(2,2);
     pubVect.publish(coeff);
 

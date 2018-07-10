@@ -8,9 +8,9 @@ The Assigment is the 2 first tasks of [this](https://docs.google.com/document/d/
 * Sample some of the [images](https://github.com/yosoufe/Assignment/tree/master/scripts/cal_imgs) for calibration using rqt_image_viewer.
 * Camera Calibration in this [Notebook](https://github.com/yosoufe/Assignment/blob/master/scripts/Camera%20Calibration.ipynb). ([hint](https://docs.opencv.org/3.4/dc/dbb/tutorial_py_calibration.html))
 * Croping the Pointcloud to the ROI which has the checkerboard in [this ROS Node](https://github.com/yosoufe/Assignment/blob/master/catkin_ws/src/camera_calibration/src/preProcessPC.cpp).
-* SubSample the cropped pintcloud to only the checkerboard surface in [this ROS Node](https://github.com/yosoufe/Assignment/blob/master/catkin_ws/src/camera_calibration/src/preProcessPC.cpp).
+* SubSample the cropped pintcloud to only the checkerboard surface in [this ROS Node](https://github.com/yosoufe/Assignment/blob/master/catkin_ws/src/camera_calibration/src/preProcessPC.cpp) as shown [here](https://youtu.be/wLyaJD1hT4E).
 * Pose Estimation with camera and checkerboard ([hint](https://docs.opencv.org/3.4/d7/d53/tutorial_py_pose.html)) in [this node](https://github.com/yosoufe/Assignment/blob/master/catkin_ws/src/camera_calibration/src/camPoseEstimator.cpp).
-* Match the normal vectors to find the rotation matrix between the camera and LIDAR ([tutorial](https://www.coursera.org/learn/robotics-perception/lecture/q9CXI/where-am-i-part-1)) at [this jupytern notebook]().
+* Match the normal vectors to find the rotation matrix between the camera and LIDAR ([tutorial](https://www.coursera.org/learn/robotics-perception/lecture/q9CXI/where-am-i-part-1)) at [this jupytern notebook](https://github.com/yosoufe/Assignment/blob/master/scripts/RotationMatrixCal.ipynb).
 
 ## Installations:
 
@@ -19,7 +19,7 @@ conda create -n assignment python=3
 source activate assignment
 # conda install -c menpo opencv3
 conda install -c conda-forge opencv 
-
+pip install scipy
 ```
 
 ## Usage:

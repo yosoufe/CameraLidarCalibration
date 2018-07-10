@@ -8,9 +8,7 @@
 #include <pcl/point_types.h>
 
 #include <pcl/filters/crop_box.h>
-
 #include <pcl/ModelCoefficients.h>
-#include <pcl/io/pcd_io.h>
 #include <pcl/point_types.h>
 #include <pcl/sample_consensus/method_types.h>
 #include <pcl/sample_consensus/model_types.h>
@@ -68,14 +66,9 @@ void pc2Callback(const sensor_msgs::PointCloud2ConstPtr& input)
 
   camera_calibration::NormalVec coeff;
   coeff.vec = coefficients->values;
-  //coeff.vec.resize(coefficients->values.size());
-  //std::memcpy(coeff.vec.data(),coefficients->values.data(),coefficients->values.size()*sizeof(float));
-//  coeff.vec.push_back(coefficients->values[0]);
-//  coeff.vec.push_back(coefficients->values[1]);
-//  coeff.vec.push_back(coefficients->values[2]);
-//  coeff.vec.push_back(coefficients->values[3]);
-
   pubVect.publish(coeff);
+
+
   // Just Inliers
   pcl::CropBox<pcl::PointXYZ> indFilter;
   cropFilter.setInputCloud(pclCropped);
@@ -91,8 +84,8 @@ void pc2Callback(const sensor_msgs::PointCloud2ConstPtr& input)
 
 int main(int argc, char **argv)
 {
-  p1[0]=0.5; p1[1]=-1.5;  p1[2]=-1.5;
-  p2[0]=2;   p2[1]=1.5;   p2[2]=2;
+  p1 << 0.5, -1.5, -1.5 ,1; // x,y,y,1
+  p2 << 2, 1.5, 2 ,1;
 
   ros::init(argc, argv, "preProcessPC");
   ros::NodeHandle nh;
