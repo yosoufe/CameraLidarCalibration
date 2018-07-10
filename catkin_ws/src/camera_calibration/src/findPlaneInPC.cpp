@@ -87,12 +87,12 @@ int main(int argc, char **argv)
   p1 << 0.5, -1.5, -1.5 ,1; // x,y,y,1
   p2 << 2, 1.5, 2 ,1;
 
-  ros::init(argc, argv, "preProcessPC");
+  ros::init(argc, argv, "findPlaneInPC");
   ros::NodeHandle nh;
 
   ros::Subscriber sub = nh.subscribe("/sensors/velodyne_points", 1000, pc2Callback);
-  pub = nh.advertise<sensor_msgs::PointCloud2>("CheckerBoardSurface", 100);
-  pubVect = nh.advertise<camera_calibration::NormalVec>("plane/fromPC",10);
+  pub = nh.advertise<sensor_msgs::PointCloud2>("/processed/CheckerBoardSurface", 100);
+  pubVect = nh.advertise<camera_calibration::NormalVec>("/processed/planeEquation/fromPC",10);
 
   ros::spin();
 

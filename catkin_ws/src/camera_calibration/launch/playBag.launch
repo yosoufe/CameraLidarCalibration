@@ -4,15 +4,15 @@
         <remap from="/image_raw" to="/sensors/camera/image_color"/>
         <remap from="/camera_info" to="/sensors/camera/camera_info"/>
     </node>
-    <node pkg="rqt_gui" type="rqt_gui" name="rqt_gui" args="--perspective-file $(find camera_calibration)/launch/IMGS.perspective"/>
-    <node pkg="rviz" type="rviz" name="rviz" args="-d $(find camera_calibration)/launch/rviz_config.rviz"/>
+    <node pkg="rqt_gui" type="rqt_gui" name="rqt_gui" args="--perspective-file $(find camera_calibration)/launch/play.perspective"/>
+    <node pkg="rviz" type="rviz" name="rviz" args="-d $(find camera_calibration)/launch/rviz_play.rviz"/>
 
-    <node pkg="camera_calibration" type="preProcessPC_node" name="preProcess"/>
+    <node pkg="camera_calibration" type="findPlaneInPC_node" name="findPlaneInPC"/>
     <node pkg="rqt_console" type="rqt_console" name="rqt_console"/>
-    <node pkg="camera_calibration" type="camPoseEstimator_node" name="camPoseEstimator"/>
+    <node pkg="camera_calibration" type="findPlaneInImages_node" name="findPlaneInImages"/>
 
     <param name="filePath" type="string" value="/home/yousof/RideCellAssignment/res.txt" />
-    <node pkg="camera_calibration" type="processor_node" name="processor" output="screen"/>
+    <node pkg="camera_calibration" type="saver_node" name="saver" output="screen"/>
 
     <node pkg="camera_calibration" type="keyBoard_node" name="keyBoard"/>
 </launch>

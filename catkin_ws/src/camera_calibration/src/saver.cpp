@@ -72,8 +72,8 @@ int main(int argc, char **argv)
   if(!nh.getParam("filePath",filePath)) filePath = "~/vectors.txt";
   ROS_INFO_STREAM(filePath);
 
-  ros::Subscriber subCamVec = nh.subscribe("/plane/fromCam", 10, fromCamCB);
-  ros::Subscriber subPCVec = nh.subscribe("/plane/fromPC", 10, fromPCCB);
+  ros::Subscriber subCamVec = nh.subscribe("/processed/planeEquation/fromCam", 10, fromCamCB);
+  ros::Subscriber subPCVec = nh.subscribe("/processed/planeEquation/fromPC", 10, fromPCCB);
 
   ros::ServiceServer service = nh.advertiseService("save", save);
 

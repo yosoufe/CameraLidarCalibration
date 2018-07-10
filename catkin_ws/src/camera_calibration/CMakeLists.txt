@@ -145,14 +145,14 @@ include_directories(
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
-add_executable(preProcessPC_node src/preProcessPC.cpp)
-target_link_libraries(preProcessPC_node ${catkin_LIBRARIES} )
+add_executable(findPlaneInPC_node src/findPlaneInPC.cpp)
+target_link_libraries(findPlaneInPC_node ${catkin_LIBRARIES} )
 
-add_executable(camPoseEstimator_node src/camPoseEstimator.cpp)
-target_link_libraries(camPoseEstimator_node ${OpenCV_LIBRARIES} ${catkin_LIBRARIES})
+add_executable(findPlaneInImages_node src/findPlaneInImages.cpp)
+target_link_libraries(findPlaneInImages_node ${OpenCV_LIBRARIES} ${catkin_LIBRARIES})
 
-add_executable(processor_node src/processor.cpp)
-target_link_libraries(processor_node ${catkin_LIBRARIES} )
+add_executable(saver_node src/saver.cpp)
+target_link_libraries(saver_node ${catkin_LIBRARIES} )
 
 add_executable(keyBoard_node src/keyBoard.cpp)
 target_link_libraries(keyBoard_node ${catkin_LIBRARIES} )

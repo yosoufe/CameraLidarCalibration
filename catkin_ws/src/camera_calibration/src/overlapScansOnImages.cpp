@@ -93,15 +93,10 @@ void PCCB(const sensor_msgs::PointCloud2::ConstPtr& pc)
 int main(int argc, char **argv)
 {
   transform = Eigen::Matrix4f::Identity();
-  transform <<  -0.08604091,  -0.9962046,  0.01316683,   -0.15,
+  transform <<  -0.08604091,  -0.9962046,  0.01316683,   -0.17,
                 0.07531615, -0.01968187,  -0.99696535,   -0.36,
-               0.9934407,  -0.08478814,   0.07672376,  -0.31,
+               0.9934407,  -0.08478814,   0.07672376,  -0.25,
                0,  0,  0, 1;
-
-//  transform <<  0,  -1,  0,   0,
-//                0, 0,  -1,    0,
-//               1,  0,   0,  0,
-//               0,  0,  0, 1;
 
   p1 << 0.0, -200.0, -200.0 ,1;
   p2 << 200.0, 200.0, 200.0 ,1;
@@ -118,7 +113,7 @@ int main(int argc, char **argv)
   ros::Subscriber subPC = nh.subscribe("/sensors/velodyne_points", 10, PCCB);
 //  ros::Subscriber subPC = nh.subscribe("CheckerBoardSurface", 10, PCCB);
 
-  pubImg = nh.advertise<sensor_msgs::Image>("imageCloud", 100);
+  pubImg = nh.advertise<sensor_msgs::Image>("/processed/imageCloud", 100);
 
   ros::spin();
 

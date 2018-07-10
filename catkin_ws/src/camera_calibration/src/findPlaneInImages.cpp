@@ -67,9 +67,6 @@ void imgCallback(const sensor_msgs::Image::ConstPtr& img)
     // publish the normal axis
     camera_calibration::NormalVec coeff;
     coeff.vec.resize(3);
-//    coeff.vec[0] = rot33.at<double>(2,0);
-//    coeff.vec[1] = rot33.at<double>(2,1);
-//    coeff.vec[2] = rot33.at<double>(2,2);
     coeff.vec[0] = rot33.at<double>(0,2);
     coeff.vec[1] = rot33.at<double>(1,2);
     coeff.vec[2] = rot33.at<double>(2,2);
@@ -109,13 +106,13 @@ int main(int argc, char **argv)
   camDst = (cv::Mat_<float>(1,5) << -0.2247311 , 0.11839985 , 0.00156723 , 0.00077842 , -0.02886818);
   isCamInfoAvailable = true;
 
-  ros::init(argc, argv, "camPoseEstimator");
+  ros::init(argc, argv, "findPlaneInImages");
   ros::NodeHandle nh;
 
   ros::Subscriber subImg = nh.subscribe("/sensors/camera/image_color", 1, imgCallback);
   //ros::Subscriber subCamInfo = nh.subscribe("/sensors/camera/camera_info", 1, camInfoCallback);
-  pubImg = nh.advertise<sensor_msgs::Image>("imageWithAxis", 100);
-  pubVect = nh.advertise<camera_calibration::NormalVec>("plane/fromCam",10);
+  pubImg = nh.advertise<sensor_msgs::Image>("/processed/imageWithAxis", 100);
+  pubVect = nh.advertise<camera_calibration::NormalVec>("/processed/planeEquation/fromCam",10);
 
   ros::spin();
 
