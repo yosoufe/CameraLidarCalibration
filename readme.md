@@ -19,7 +19,7 @@ The steps from 5. to 8. are done in [palyBag.launch](https://github.com/yosoufe/
 9. Match the normal vectors to find the rotation matrix between the camera and LIDAR ([tutorial](https://www.coursera.org/learn/robotics-perception/lecture/X22IH/pose-from-3d-point-correspondences-the-procrustes-problem)) at [this jupytern notebook](https://github.com/yosoufe/Assignment/blob/master/scripts/RotationMatrixCal.ipynb). The vectors are read from the csv file which was saved in the previous step.
 10. Overlap the pointcloud into the image in [overlapScansOnImages_node](https://github.com/yosoufe/Assignment/blob/master/catkin_ws/src/camera_calibration/src/overlapScansOnImages.cpp) using the calculated Rotation Matrix in the previous step. The translation part of the transformation Matrix has been gained by trial and error. [final.launch](https://github.com/yosoufe/Assignment/blob/master/catkin_ws/src/camera_calibration/launch/final.launch) runs the final result which can be seen in [this video](https://www.youtube.com/watch?v=ZNkftIjOVeE&feature=youtu.be)
 
-<a href="https://www.youtube.com/watch?v=ZNkftIjOVeE&feature=youtu.be" target="_blank"><img src="hhttps://raw.githubusercontent.com/yosoufe/Assignment/master/Docs/video.png" alt="Final Video"/></a>
+<a href="https://www.youtube.com/watch?v=ZNkftIjOVeE&feature=youtu.be" target="_blank"><img src="https://raw.githubusercontent.com/yosoufe/Assignment/master/Docs/video.png" alt="Final Video"/></a>
 
 ![alt text](https://github.com/yosoufe/Assignment/blob/master/Docs/ToShowOff.png)
 
