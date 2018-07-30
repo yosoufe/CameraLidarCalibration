@@ -1,4 +1,4 @@
-# Ride Cell Assignment Writeup
+# Calibration between Camera and Lidar
 
 The Assigment is the 2 first tasks of [this](https://docs.google.com/document/d/1nPu88GcZtNbK_Ymds0xDD0di-BQol65H-c6o5yjIIq0/edit?usp=sharing).
 
