@@ -14,12 +14,19 @@
 #include <pcl/sample_consensus/model_types.h>
 #include <pcl/segmentation/sac_segmentation.h>
 
+#include <pcl/sample_consensus/ransac.h>
+#include <pcl/sample_consensus/sac_model_plane.h>
+#include <boost/shared_ptr.hpp>
+
 #include <Eigen/Eigen>
 
 ros::Publisher pub;
 ros::Publisher pubVect;
 
 Eigen::Vector4f p1,p2;
+
+using namespace pcl;
+using namespace std;
 
 
 void pc2Callback(const sensor_msgs::PointCloud2ConstPtr& input)
@@ -45,6 +52,31 @@ void pc2Callback(const sensor_msgs::PointCloud2ConstPtr& input)
   //pcl::toROSMsg(*pclCropped,*ROSoutput);
 
   // Planar Segmentation
+  SampleConsensusModelPlane<PointXYZ>::Ptr model(
+    new SampleConsensusModelPlane<PointXYZ> (pclCropped));
+  RandomSampleConsensus<PointXYZ> sac (model, 0.01);
+  bool result = sac.computeModel ();
+
+  boost::shared_ptr< vector<int> > inliers (new vector<int>);
+  sac.getInliers (*inliers);
+  Eigen::VectorXf coefficients;
+  sac.getModelCoefficients (coefficients);
+
+  if (inliers->size () == 0)
+  {
+    ROS_DEBUG ("Could not estimate a planar model for the given dataset.");
+    return;
+  }
+
+  camera_calibration::NormalVec coeff;
+  for (int i = 0; i< 4; i++){
+    coeff.vec.push_back(coefficients[i]);
+  }
+  pubVect.publish(coeff);
+
+
+  // Planar Segmentation
+  /*
   pcl::ModelCoefficients::Ptr coefficients (new pcl::ModelCoefficients);
   pcl::PointIndices::Ptr inliers (new pcl::PointIndices);
   pcl::SACSegmentation<pcl::PointXYZ> seg;
@@ -62,11 +94,14 @@ void pc2Callback(const sensor_msgs::PointCloud2ConstPtr& input)
   ROS_INFO_STREAM(inliers->indices.size ()<<" from PC: " << coefficients->values[0] << " "
                                   << coefficients->values[1] << " "
                                   << coefficients->values[2] << " "
-                                  << coefficients->values[3]);
+                                  << coefficients->values[3]); 
+
 
   camera_calibration::NormalVec coeff;
   coeff.vec = coefficients->values;
   pubVect.publish(coeff);
+
+  */
 
 
   // Just Inliers
